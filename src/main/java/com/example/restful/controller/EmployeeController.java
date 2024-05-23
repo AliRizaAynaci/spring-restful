@@ -22,6 +22,11 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getAllEmployees());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Employee>> searchEmployee(@RequestBody Employee employee) {
+        return ResponseEntity.ok(employeeService.searchEmployee(employee.getName()));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
         return ResponseEntity.ok(employeeService.getEmployeeById(id));
@@ -32,7 +37,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.saveEmployee(employee));
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id , @RequestBody Employee employee) {
         if (id == null) {
             return ResponseEntity.badRequest().build();
@@ -41,7 +46,7 @@ public class EmployeeController {
         return ResponseEntity.ok(updatedEmployee);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok().build();

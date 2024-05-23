@@ -38,4 +38,8 @@ public class EmployeeService {
         employeesRepository.deleteById(id);
     }
 
+    public List<Employee> searchEmployee(String name) {
+        return employeesRepository.findByName(name);
+    }
+
 }
